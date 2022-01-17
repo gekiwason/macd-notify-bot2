@@ -25,7 +25,7 @@ golden_cross_symbol_list = ["\nBinance_MACD_GC一覧"]
 dead_cross_symbol_list = ["\nMACD_DC一覧"]
 
 # 時間軸設定(単位は時間)
-TIME_MARGIN = 24
+TIME_MARGIN = 1
 
 
 def read_crypt_pricedata():
@@ -100,22 +100,20 @@ def cal_tech_incicator(df):
             if macd.iloc[-1] < 0 and macdsignal.iloc[-1] < 0:
 
                 if macdhist.iloc[-2] < 0 and macdhist.iloc[-1] > 0:
-                    print("GC", symbol, flush=True)
                     golden_cross_symbol_list.append("\n" + symbol)
                     golden_cross_count += 1
 
             elif macd.iloc[-1] > 0 and macdsignal.iloc[-1] > 0:
 
                 if macdhist.iloc[-2] > 0 and macdhist.iloc[-1] < 0:
-                    print("DC", symbol, flush=True)
                     dead_cross_symbol_list.append("\n" + symbol)
                     dead_cross_count += 1
 
         except:
             print("macdの計算に失敗しました", flush=True)
 
-    golden_cross_symbol_list.insert(1, "\nGC数:" + str(golden_cross_count))
-    dead_cross_symbol_list.insert(2, "\nDC数:" + str(dead_cross_count))
+    golden_cross_symbol_list.insert(1, "GC数:" + str(golden_cross_count))
+    dead_cross_symbol_list.insert(2, "DC数:" + str(dead_cross_count))
 
     return golden_cross_symbol_list, dead_cross_symbol_list
 
@@ -126,9 +124,11 @@ def send_line(golden_cross_symbol_list, dead_cross_symbol_list, cycle):
             message = golden_cross_symbol_list + dead_cross_symbol_list
 
         else:
-            message = "\n" + \
-                        "Binance_全銘柄MACD_GC_DC通知プログラムを起動しました"
+            message = "Binance_全銘柄MACD_GC_DC通知プログラムを起動しました"
+            line_bot_api = LineBotApi(channel_access_token=line_notify_token)
+            line_bot_api.push_message(line_notify_id, TextSendMessage(text=message))
 
+        message = "".join(message)
         line_bot_api = LineBotApi(channel_access_token=line_notify_token)
         line_bot_api.push_message(line_notify_id, TextSendMessage(text=message))
 
