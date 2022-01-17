@@ -14,7 +14,7 @@ make
 sudo make install
 pip3 install TA-Lib
 
-cd macd-notify-bot2
+cd ../macd-notify-bot2
 touch .env
 echo "please input userID: "
 read STR1
