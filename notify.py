@@ -125,8 +125,6 @@ def send_line(golden_cross_symbol_list, dead_cross_symbol_list, cycle):
 
         else:
             message = "Binance_全銘柄MACD_GC_DC通知プログラムを起動しました"
-            line_bot_api = LineBotApi(channel_access_token=line_notify_token)
-            line_bot_api.push_message(line_notify_id, TextSendMessage(text=message))
 
         message = "".join(message)
         line_bot_api = LineBotApi(channel_access_token=line_notify_token)
