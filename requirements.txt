@@ -1,0 +1,5 @@
+pandas
+requests
+ccxt == 1.45.18
+line-bot-sdk
+python-dotenv
