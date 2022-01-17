@@ -1,7 +1,6 @@
 #!/bin/bash
 
-sudo apt update
-sudo apt upgrade
+sudo apt-get update && sudo apt-get upgrade y
 sudo apt install -y python3 python3-pip build-essential libssl-dev libffi-dev python3-dev
 pip3 install --upgrade pip
 pip3 install --upgrade setuptools
