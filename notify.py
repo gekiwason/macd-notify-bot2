@@ -33,7 +33,7 @@ def read_crypt_pricedata():
         # CSV読み込み
         df = pd.read_csv('BinanceAllCryptPriceData.csv', index_col=0)
     except:
-        print("BinanceAllCryptPriceData.csvが見つかりませんでした")
+        print("BinanceAllCryptPriceData.csvが見つかりませんでした", flush=True)
 
     return df
 
@@ -49,7 +49,7 @@ def get_all_crypt_pricedata():
         # 行列反転
         current_price_df = current_price_df.T
     except:
-        print("Binanceから価格情報を取得できませんでした")
+        print("Binanceから価格情報を取得できませんでした", flush=True)
 
     return current_price_df
 
@@ -61,7 +61,7 @@ def add_current_price(df, current_price_df):
         d_today = datetime.datetime.now()
         df.loc[d_today] = "NaN"
     except:
-        print("日時情報を取得できませんでした")
+        print("日時情報を取得できませんでした", flush=True)
 
     symbolList = current_price_df.columns
     for symbol in symbolList:
@@ -81,7 +81,7 @@ def write_crypt_pricedata(df):
         # CSV読み込み
         df.to_csv("BinanceAllCryptPriceData.csv")
     except:
-        print("BinanceAllCryptPriceData.csvに書き込めませんでした")
+        print("BinanceAllCryptPriceData.csvに書き込めませんでした", flush=True)
 
 
 def cal_tech_incicator(df):
@@ -100,19 +100,19 @@ def cal_tech_incicator(df):
             if macd.iloc[-1] < 0 and macdsignal.iloc[-1] < 0:
 
                 if macdhist.iloc[-2] < 0 and macdhist.iloc[-1] > 0:
-                    print("GC", symbol)
+                    print("GC", symbol, flush=True)
                     golden_cross_symbol_list.append("\n" + symbol)
                     golden_cross_count += 1
 
             elif macd.iloc[-1] > 0 and macdsignal.iloc[-1] > 0:
 
                 if macdhist.iloc[-2] > 0 and macdhist.iloc[-1] < 0:
-                    print("DC", symbol)
+                    print("DC", symbol, flush=True)
                     dead_cross_symbol_list.append("\n" + symbol)
                     dead_cross_count += 1
 
         except:
-            print("macdの計算に失敗しました")
+            print("macdの計算に失敗しました", flush=True)
 
     golden_cross_symbol_list.insert(1, "\nGC数:" + str(golden_cross_count))
     dead_cross_symbol_list.insert(2, "\nDC数:" + str(dead_cross_count))
@@ -133,13 +133,13 @@ def send_line(golden_cross_symbol_list, dead_cross_symbol_list, cycle):
         line_bot_api.push_message(line_notify_id, TextSendMessage(text=message))
 
    except:
-        print("ラインを送信できませんでした")
+        print("ラインを送信できませんでした", flush=True)
 
 
-print("Binance_全銘柄MACCDゴールデンクロス通知プログラムを起動しました")
+print("Binance_全銘柄MACCDゴールデンクロス通知プログラムを起動しました", flush=True)
 while True:
     cycle += 1
-    print(cycle, "回目の価格取得です")
+    print(cycle, "回目の価格取得です", flush=True)
 
     if os.path.exists('BinanceAllCryptPriceData.csv'):
         df = read_crypt_pricedata()
