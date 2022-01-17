@@ -21,5 +21,5 @@ read STR1
 echo "LINE_NOTIFY_ID = '${STR1}'" 1>>.env
 echo "please input token: "
 read STR2
-echo "LINE_NOTIFY_ID = '${STR2}'" 1>>.env
+echo "LINE_NOTIFY_TOKEN = '${STR2}'" 1>>.env
 nohup python3 notify.py &
