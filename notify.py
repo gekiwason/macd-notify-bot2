@@ -85,7 +85,7 @@ def write_crypt_pricedata(df):
 
 
 def cal_tech_incicator(df):
-    golden_cross_symbol_list = ["\nBinance_MACD_GC一覧"]
+    golden_cross_symbol_list = ["MACD_GC一覧"]
     dead_cross_symbol_list = ["\n", "\nMACD_DC一覧"]
     golden_cross_count = 0
     dead_cross_count = 0
@@ -112,8 +112,8 @@ def cal_tech_incicator(df):
         except:
             print("macdの計算に失敗しました", flush=True)
 
-    golden_cross_symbol_list.insert(1, "GC数:" + str(golden_cross_count))
-    dead_cross_symbol_list.insert(2, "DC数:" + str(dead_cross_count))
+    golden_cross_symbol_list.insert(1, "\nGC数:" + str(golden_cross_count))
+    dead_cross_symbol_list.insert(2, "\nDC数:" + str(dead_cross_count))
 
     return golden_cross_symbol_list, dead_cross_symbol_list
 
