@@ -25,7 +25,7 @@ golden_cross_symbol_list = ["\nBinance_MACD_GC一覧"]
 dead_cross_symbol_list = ["\nMACD_DC一覧"]
 
 # 時間軸設定(単位は時間)
-TIME_MARGIN = 1
+TIME_MARGIN = 24
 
 
 def read_crypt_pricedata():
